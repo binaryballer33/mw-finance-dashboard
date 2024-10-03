@@ -1,22 +1,56 @@
 {
-  "name": "trading-basics",
+  "name": "mw-finance-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3333",
+    "start": "next start -p 3333",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "rm:all": "rm -rf node_modules .next out dist build package-lock.json yarn.lock bun.lockb",
+    "re:dev": "npm run rm:all && bun install && npm run dev",
+    "re:start": "npm run rm:all && bun install && npm run start",
+    "re:build": "npm run rm:all && bun install && npm run build",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --check \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
+    "format:fix": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",
+    "seed-database": "tsx prisma/seed-database.ts",
+    "view-database": "prisma studio"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.1",
+    "@prisma/client": "5.19.0",
+    "@tanstack/react-query": "^5.56.2",
+    "@tanstack/react-query-devtools": "^5.58.0",
+    "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
+    "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.13"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-perfectionist": "^2.11.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "prettier": "^3.3.3",
+    "prisma": "5.19.0",
+    "typescript": "^5"
   }
 }

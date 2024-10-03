@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+build/*
+dist/*
+
+# Lock files
+yarn.lock
+package-lock.json
+jsconfig.json
+
+# Misc
+public
+**/out/*
+
+src/mocks/yugioh-cards.json
+
