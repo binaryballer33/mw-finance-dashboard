@@ -1,4 +1,4 @@
-import { Trade } from "src/types/trades/trade"
+import type { Trade } from "@prisma/client"
 
 type StatusSuccess = 200 | 201
 
@@ -22,7 +22,4 @@ type ServerErrorResponse = {
     status: StatusClientError | StatusServerError
 }
 
-export type ServerResponse =
-    | ServerErrorResponse
-    | ServerSuccessResponse
-    | ServerTradesSuccessResponse
+export type ServerResponse = ServerErrorResponse | ServerSuccessResponse | ServerTradesSuccessResponse

@@ -1,0 +1,139 @@
+{
+    "monthlyRecurring": [
+        {
+            "dueDayOfMonth": "01",
+            "name": "VA Disabled Veteran Pay",
+            "amount": 3870.59,
+            "category": "GOVERNMENT",
+            "type": "INCOME"
+        },
+        {
+            "dueDayOfMonth": "05",
+            "name": "Sofi Loan",
+            "amount": 1111.03,
+            "category": "PERSONAL LOAN",
+            "type":"EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "01",
+            "name": "USAA Auto Insurance",
+            "amount": 65.84,
+            "category": "AUTO INSURANCE",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "01",
+            "name": "USAA Renters Insurance",
+            "amount": 29.13,
+            "category": "RENTERS INSURANCE",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "02",
+            "name": "PODS Storage",
+            "amount": 161.50,
+            "category": "STORAGE",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "01",
+            "name": "Honey Drip Signals Discord",
+            "amount": 200.00,
+            "category": "EDUCATION",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "02",
+            "name": "AWS",
+            "amount": 0.55,
+            "category": "AMAZON WEB SERVICES",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "10",
+            "name": "Virtual Post Mail MANDYTEC LLC",
+            "amount": 100.00,
+            "category": "BUSINESS",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "03",
+            "name": "Webull Real Time Option Pricing",
+            "amount": 3.30,
+            "category": "STOCKS",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "07",
+            "name": "GOOGLE FI",
+            "amount": 30.00,
+            "category": "LIVING - COMMUNICATION",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "06",
+            "name": "YOUTUBE PREMIUM - THIS WILL BE CHANGED",
+            "amount": 15.00,
+            "category": "ENTERTAINMENT - STREAMING SERVICES",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "16",
+            "name": "Netflix - THIS WILL BE CHANGED",
+            "amount": 12.00,
+            "category": "ENTERTAINMENT - STREAMING SERVICES",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "03",
+            "name": "Disney - THIS WILL BE CHANGED",
+            "amount": 0.00,
+            "category": "ENTERTAINMENT - STREAMING SERVICES",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "03",
+            "name": "HBO - THIS WILL BE CHANGED",
+            "amount": 0.00,
+            "category": "ENTERTAINMENT - STREAMING SERVICES",
+            "type": "EXPENSE"
+        },
+        {
+            "dueDayOfMonth": "03",
+            "name": "CRUNCHY ROLE - THIS WILL BE CHANGED",
+            "amount": 0.00,
+            "category": "ENTERTAINMENT - STREAMING SERVICES",
+            "type": "EXPENSE"
+        }
+    ],
+    "yearlyRecurring": [
+        {
+            "monthDayDue": "06-01",
+            "name": "CHASE SAPPHIRE RESERVE ANNUAL FEE",
+            "amount": 550.00,
+            "category": "BANKING",
+            "type": "EXPENSE"
+        },
+        {
+            "monthDayDue": "04-01",
+            "name": "CHASE UNITED EXPLORER ANNUAL FEE",
+            "amount": 95.00,
+            "category": "BANKING",
+            "type": "EXPENSE"
+        },
+        {
+            "monthDayDue": "01-08",
+            "name": "AMEX PLATINUM CARD ANNUAL FEE",
+            "amount": 550.00,
+            "category": "BANKING",
+            "type": "EXPENSE"
+        },
+        {
+            "monthDayDue": "04-23",
+            "name": "AMEX DELTA GOLD CARD ANNUAL FEE",
+            "amount": 99.00,
+            "category": "BANKING",
+            "type": "EXPENSE"
+        }
+    ]
+}

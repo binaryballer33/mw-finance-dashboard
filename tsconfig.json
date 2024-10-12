@@ -18,6 +18,7 @@
         "noUnusedParameters": true,
         // Warns about unused function parameters
         "noImplicitAny": false,
+        
         "plugins": [
             {
                 "name": "next"

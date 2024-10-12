@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,14 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RecurringType {
+  INCOME
+  EXPENSE
+}
+
+enum TradeType {
+  CALL
+  PUT
+}
+
+enum Realized {
+  GAIN
+  LOSS
+}
+
 model Trade {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   date       String
   profitLoss Float
-  realized   String
+  realized   Realized
   strike     Int
   ticker     String
-  type       String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
+  type       TradeType
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
+}
+
+model MonthlyRecurring {
+  id            String        @id @default(cuid())
+  dueDayOfMonth String
+  name          String
+  amount        Float
+  category      String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
+  type          RecurringType
+}
+
+model YearlyRecurring {
+  id          String        @id @default(cuid())
+  monthDayDue String
+  name        String
+  amount      Float
+  category    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
+  type        RecurringType
 }

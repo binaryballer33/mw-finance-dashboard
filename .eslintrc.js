@@ -32,6 +32,7 @@ module.exports = {
         // rules im adding to the config
         "object-curly-spacing": ["error", "always"],
         "object-curly-newline": "off",
+        "@typescript-eslint/return-await": "off",
 
         // get rid of direct import of React, after React 17 this is not necessary
         "no-restricted-imports": [

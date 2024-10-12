@@ -11,6 +11,7 @@ const routes = {
     api: { ...apiRoutes },
 
     coveredCallCashSecuredPutData: "prisma/cc_csp_profit_loss.json",
+    recurringExpenses: "prisma/recurring-expenses.json",
 }
 
 export default routes
