@@ -58,28 +58,35 @@ export default async function prefetchHomePageDataDehydrateState() {
     const monthlyRecurringData = recurringIncomeExpenseCalculator.getMonthlyRecurringData()
     const yearlyRecurringData = recurringIncomeExpenseCalculator.getYearlyRecurringData()
 
+    /* create return objects */
+    const monthlyRecurringDataCalculated: MonthlyRecurringData = {
+        avgProfitLoss: tradeData.avgMonthlyProfitLoss,
+        expenses: monthlyRecurringData.expenses,
+        expensesTotal: monthlyRecurringData.expensesTotal,
+        incomes: monthlyRecurringData.incomes,
+        incomesTotal: monthlyRecurringData.incomesTotal,
+    }
+
+    const yearlyRecurringDataCalculated: YearlyRecurringData = {
+        expenses: yearlyRecurringData.expenses,
+        expensesTotal: yearlyRecurringData.expensesTotal,
+        incomes: yearlyRecurringData.incomes,
+        incomesTotal: yearlyRecurringData.incomesTotal,
+    }
+
+    const tradeDataCalculated: TradeData = {
+        allTimeTotal: tradeData.allTimeTotal,
+        avgMonthlyProfitLoss: tradeData.avgMonthlyProfitLoss,
+        monthlyTradeData: tradeData.monthlyTradeData,
+        tickerTradeData: tradeData.tickerTradeData,
+        weeklyTradeData: tradeData.weeklyTradeData,
+    }
+
     return {
         // return the dehydrated state of the queryClient and the trades from the cache
         dehydratedState: dehydrate(queryClient),
-        monthlyRecurring: {
-            avgProfitLoss: tradeData.avgMonthlyProfitLoss,
-            expenses: monthlyRecurringData.expenses,
-            expensesTotal: monthlyRecurringData.expensesTotal,
-            incomes: monthlyRecurringData.incomes,
-            incomesTotal: monthlyRecurringData.incomesTotal,
-        } satisfies MonthlyRecurringData,
-        tradeData: {
-            allTimeTotal: tradeData.allTimeTotal,
-            avgMonthlyProfitLoss: tradeData.avgMonthlyProfitLoss,
-            monthlyTradeData: tradeData.monthlyTradeData,
-            tickerTradeData: tradeData.tickerTradeData,
-            weeklyTradeData: tradeData.weeklyTradeData,
-        } satisfies TradeData,
-        yearlyRecurring: {
-            expenses: yearlyRecurringData.expenses,
-            expensesTotal: yearlyRecurringData.expensesTotal,
-            incomes: yearlyRecurringData.incomes,
-            incomesTotal: yearlyRecurringData.incomesTotal,
-        } satisfies YearlyRecurringData,
+        monthlyRecurring: monthlyRecurringDataCalculated,
+        tradeData: tradeDataCalculated,
+        yearlyRecurring: yearlyRecurringDataCalculated,
     }
 }

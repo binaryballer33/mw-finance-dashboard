@@ -6,6 +6,8 @@ import type { WeeklyTradeData } from "src/types/trades/weekly-trade-data"
 import dayjs from "dayjs"
 import weekOfYear from "dayjs/plugin/weekOfYear"
 
+import convertToFloat from "src/utils/helper-functions/convertToFloat"
+
 dayjs.extend(weekOfYear)
 
 export default class CoveredCallCashSecuredPutCalculator {
@@ -15,22 +17,23 @@ export default class CoveredCallCashSecuredPutCalculator {
         this.trades = trades
     }
 
-    private getAllTimeTotal(): number {
-        return parseFloat(
-            this.trades
-                .reduce((total, trade) => total + (trade.realized === "GAIN" ? trade.profitLoss : -trade.profitLoss), 0)
-                .toFixed(2),
-        )
+    // eslint-disable-next-line class-methods-use-this
+    private addProfitLoss(trade: Trade) {
+        return trade.realized === "GAIN" ? trade.profitLoss : -trade.profitLoss
     }
 
-    private getAverageMonthlyProfitLoss(monthlyTradeData: MonthlyTradeData[]): number {
-        // add up the sums for each month and divide by the number of months
-        return parseFloat((this.getAllTimeTotal() / monthlyTradeData.length).toFixed(2))
+    private getAllTimeTotal(): number {
+        return convertToFloat(this.trades.reduce((total, trade) => total + this.addProfitLoss(trade), 0))
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    private getAverageMonthlyProfitLoss(monthlyTradeData: MonthlyTradeData[], allTimeTotal: number): number {
+        return convertToFloat(allTimeTotal / monthlyTradeData.length)
     }
 
     private getMonthlyTradeData(): MonthlyTradeData[] {
         // group trades by month ( key ) and an object of type MonthlyTradeData will be the ( value )
-        const monthlyTrades: Record<string, MonthlyTradeData> = this.trades.reduce((obj, trade) => {
+        const monthlyTrades = this.trades.reduce((obj: Record<string, MonthlyTradeData>, trade) => {
             // get the month and year from the trade date
             const monthYearOfTrade = dayjs(trade.date).format("MM-YYYY")
 
@@ -38,7 +41,7 @@ export default class CoveredCallCashSecuredPutCalculator {
             if (!obj[monthYearOfTrade]) obj[monthYearOfTrade] = { monthYearOfTrade, total: 0, tradeCount: 0 }
 
             // accumulate the total and trade count for the month
-            obj[monthYearOfTrade].total += trade.realized === "GAIN" ? trade.profitLoss : -trade.profitLoss
+            obj[monthYearOfTrade].total += this.addProfitLoss(trade)
             obj[monthYearOfTrade].tradeCount += 1
 
             return obj
@@ -49,7 +52,7 @@ export default class CoveredCallCashSecuredPutCalculator {
 
         // round the totals to 2 decimal places and return a float
         monthlyTradeData.forEach((monthlyTrade) => {
-            monthlyTrade.total = parseFloat(monthlyTrade.total.toFixed(2))
+            monthlyTrade.total = convertToFloat(monthlyTrade.total)
         })
 
         return monthlyTradeData
@@ -57,12 +60,12 @@ export default class CoveredCallCashSecuredPutCalculator {
 
     private getTickerTradeData(): TickerTradeData[] {
         // group trades by ticker ( key ) and an object of type TickerTradeData will be the ( value )
-        const tickerTrades: Record<string, TickerTradeData> = this.trades.reduce((obj, trade) => {
+        const tickerTrades = this.trades.reduce((obj: Record<string, TickerTradeData>, trade) => {
             // create the object if it doesn't exist and set the values
             if (!obj[trade.ticker]) obj[trade.ticker] = { ticker: trade.ticker, total: 0, tradeCount: 0 }
 
             // increment the total and trade count for the ticker
-            obj[trade.ticker].total += trade.realized === "GAIN" ? trade.profitLoss : -trade.profitLoss
+            obj[trade.ticker].total += this.addProfitLoss(trade)
             obj[trade.ticker].tradeCount += 1
 
             // return the ticker trade data object
@@ -74,7 +77,7 @@ export default class CoveredCallCashSecuredPutCalculator {
 
         // round the totals to 2 decimal places and return a float
         tickerTradeData.forEach((tickerTrade) => {
-            tickerTrade.total = parseFloat(tickerTrade.total.toFixed(2))
+            tickerTrade.total = convertToFloat(tickerTrade.total)
         })
 
         return tickerTradeData
@@ -82,7 +85,7 @@ export default class CoveredCallCashSecuredPutCalculator {
 
     private getWeeklyTradeData(): WeeklyTradeData[] {
         // group trades by week ( key ) and an object of type WeeklyTradeData will be the ( value )
-        const weeklyTrades: Record<number, WeeklyTradeData> = this.trades.reduce((obj, trade) => {
+        const weeklyTrades = this.trades.reduce((obj: Record<number, WeeklyTradeData>, trade) => {
             // the date of the trade is the friday expiry day
             const date = dayjs(trade.date)
             const weekOfTheYear = date.week()
@@ -95,7 +98,7 @@ export default class CoveredCallCashSecuredPutCalculator {
             }
 
             // increment the total and trade count for the week
-            obj[weekOfTheYear].total += trade.realized === "GAIN" ? trade.profitLoss : -trade.profitLoss
+            obj[weekOfTheYear].total += this.addProfitLoss(trade)
             obj[weekOfTheYear].tradeCount += 1
 
             // return the weekly trade data object
@@ -107,7 +110,7 @@ export default class CoveredCallCashSecuredPutCalculator {
 
         // round the totals to 2 decimal places and return a float
         weeklyTradeData.forEach((weeklyTrade) => {
-            weeklyTrade.total = parseFloat(weeklyTrade.total.toFixed(2))
+            weeklyTrade.total = convertToFloat(weeklyTrade.total)
         })
 
         return weeklyTradeData
@@ -116,7 +119,7 @@ export default class CoveredCallCashSecuredPutCalculator {
     public getAllTradeData() {
         const allTimeTotal = this.getAllTimeTotal()
         const monthlyTradeData = this.getMonthlyTradeData()
-        const avgMonthlyProfitLoss = this.getAverageMonthlyProfitLoss(monthlyTradeData)
+        const avgMonthlyProfitLoss = this.getAverageMonthlyProfitLoss(monthlyTradeData, allTimeTotal)
 
         return {
             allTimeTotal,

@@ -7,10 +7,10 @@
  * */
 export type WeeklyTradeData = {
     /* the friday date that the trade expired */
-    endDate: Date
+    endDate: Date | string
 
     /* the monday date that the trade started */
-    startDate: Date
+    startDate: Date | string
 
     /* the total amount made from trades this month */
     total: number

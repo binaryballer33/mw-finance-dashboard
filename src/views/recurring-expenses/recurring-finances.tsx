@@ -6,7 +6,9 @@ import { randomUUID } from "node:crypto"
 
 import dayjs from "dayjs"
 
-import { Container } from "@mui/material"
+import { Container, Typography } from "@mui/material"
+
+import convertToFloat from "src/utils/helper-functions/convertToFloat"
 
 import FlexBetweenContainer from "src/components/flex-box/flex-between-container"
 import FlexContainer from "src/components/flex-box/flex-container"
@@ -22,7 +24,38 @@ type RecurringExpensesProps = {
 export default async function RecurringFinances(props: RecurringExpensesProps) {
     const { monthlyRecurring, yearlyRecurring } = props
 
-    // TODO: fix this crazy shit later
+    const netMonthlyOperatingBudget = convertToFloat(
+        monthlyRecurring.incomesTotal - monthlyRecurring.expensesTotal + monthlyRecurring.avgProfitLoss,
+    )
+
+    const today = dayjs()
+
+    return (
+        <Container maxWidth="xl">
+            <FlexContainer my={5}>
+                <Typography color="#8B8000" variant="h5">
+                    Net Monthly Operating Budget
+                </Typography>
+                <Typography color="success" variant="h5">
+                    {netMonthlyOperatingBudget}
+                </Typography>
+            </FlexContainer>
+
+            <FlexBetweenContainer marginY={10} stackOn="desktop">
+                <MonthlyRecurring monthlyRecurring={addOtherIncomes(monthlyRecurring)} today={today} type="INCOME" />
+                <YearlyRecurring today={today} type="INCOME" yearlyRecurring={yearlyRecurring.incomes} />
+            </FlexBetweenContainer>
+
+            <FlexContainer stackOn="desktop">
+                <MonthlyRecurring monthlyRecurring={monthlyRecurring.expenses} today={today} type="EXPENSE" />
+                <YearlyRecurring today={today} type="EXPENSE" yearlyRecurring={yearlyRecurring.expenses} />
+            </FlexContainer>
+        </Container>
+    )
+}
+
+/* add any other additional incomes to the monthly recurring incomes array */
+function addOtherIncomes(monthlyRecurring: MonthlyRecurringData) {
     const additionalMonthlyIncome = {
         amount: monthlyRecurring.avgProfitLoss,
         category: "Investments",
@@ -34,20 +67,5 @@ export default async function RecurringFinances(props: RecurringExpensesProps) {
         updatedAt: dayjs("10-10-2024").toDate(),
     } satisfies MonthlyRecurringItem
     monthlyRecurring.incomes.push(additionalMonthlyIncome)
-
-    const today = dayjs()
-
-    return (
-        <Container maxWidth="xl">
-            <FlexBetweenContainer marginY={10} stackOn="desktop">
-                <MonthlyRecurring monthlyRecurring={monthlyRecurring.incomes} today={today} type="INCOME" />
-                <YearlyRecurring today={today} type="INCOME" yearlyRecurring={yearlyRecurring.incomes} />
-            </FlexBetweenContainer>
-
-            <FlexContainer stackOn="desktop">
-                <MonthlyRecurring monthlyRecurring={monthlyRecurring.expenses} today={today} type="EXPENSE" />
-                <YearlyRecurring today={today} type="EXPENSE" yearlyRecurring={yearlyRecurring.expenses} />
-            </FlexContainer>
-        </Container>
-    )
+    return monthlyRecurring.incomes
 }
