@@ -1,5 +1,29 @@
 [
 	{
+		"date": "2024-10-11",
+		"ticker": "AMD",
+		"type": "CALL",
+		"strike": 185,
+		"profitLoss": 189.96,
+		"realized": "GAIN"
+	},
+	{
+		"date": "2024-10-11",
+		"ticker": "NVDA",
+		"type": "CALL",
+		"strike": 137,
+		"profitLoss": 183.96,
+		"realized": "GAIN"
+	},
+	{
+		"date": "2024-10-11",
+		"ticker": "TSLA",
+		"type": "PUT",
+		"strike": 225,
+		"profitLoss": 319.31,
+		"realized": "GAIN"
+	},
+	{
 		"date": "2024-10-04",
 		"ticker": "TSLA",
 		"type": "CALL",

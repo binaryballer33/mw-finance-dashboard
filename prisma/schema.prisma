@@ -23,15 +23,56 @@ enum Realized {
 }
 
 model Trade {
-  id         String    @id @default(cuid())
-  date       String
-  profitLoss Float
-  realized   Realized
-  strike     Int
-  ticker     String
-  type       TradeType
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @default(now())
+  id             String       @id @default(cuid())
+  date           String
+  profitLoss     Float
+  realized       Realized
+  strike         Int
+  ticker         String
+  type           TradeType
+  WeeklyTrade    WeeklyTrade  @relation(fields: [weeklyTradeId], references: [id], onDelete: Cascade)
+  weeklyTradeId  String
+  MonthlyTrade   MonthlyTrade @relation(fields: [monthlyTradeId], references: [id], onDelete: Cascade)
+  monthlyTradeId String
+  TickerTrade    TickerTrade  @relation(fields: [tickerTradeId], references: [id], onDelete: Cascade)
+  tickerTradeId  String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+}
+
+model WeeklyTrade {
+  id             String       @id @default(cuid())
+  startDate      String
+  endDate        String
+  total          Float
+  tradeCount     Int
+  weekOfTheYear  Int          @unique
+  trades         Trade[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+  MonthlyTrade   MonthlyTrade @relation(fields: [monthlyTradeId], references: [id])
+  monthlyTradeId String
+}
+
+model MonthlyTrade {
+  id               String        @id @default(cuid())
+  total            Float
+  tradeCount       Int
+  monthYearOfTrade String        @unique
+  weeklyTrades     WeeklyTrade[]
+  trades           Trade[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now())
+}
+
+model TickerTrade {
+  id         String   @id @default(cuid())
+  total      Float
+  tradeCount Int
+  ticker     String   @unique
+  trades     Trade[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
 model MonthlyRecurring {
