@@ -9,6 +9,7 @@ export default async function getCcCspTrades(page = 0, limit = 50): Promise<null
 
     try {
         return await prisma.trade.findMany({
+            orderBy: { date: "desc" },
             skip: skipPreviousRecords,
             take: limit,
         })

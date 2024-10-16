@@ -1,13 +1,14 @@
-import type { WeeklyTradeData } from "src/types/trades/weekly-trade-data"
-
-import dayjs from "dayjs"
+import type { WeeklyTrade } from "@prisma/client"
 
 import { Box, Typography } from "@mui/material"
+
+import convertToFloat from "src/utils/helper-functions/convertToFloat"
+import getDayJsDateWithPlugins from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
 
 import HiddenOnScreen from "src/components/hidden-on-screen"
 
 type WeeklyTotalsProps = {
-    weeklyTradeData: WeeklyTradeData[]
+    weeklyTradeData: WeeklyTrade[]
 }
 
 export default function WeeklyTradeStats(props: WeeklyTotalsProps) {
@@ -21,10 +22,9 @@ export default function WeeklyTradeStats(props: WeeklyTotalsProps) {
 
             {/* Weekly Trade Data Rows */}
             {weeklyTradeData.map((weeklyItem) => {
-                const { endDate, startDate, total, tradeCount, weekOfTheYear } = weeklyItem
-
-                const startDateFormatted = dayjs(startDate).format("ddd MMM DD, YYYY")
-                const endDateFormatted = dayjs(endDate).format("ddd MMM DD, YYYY")
+                const { endDate, startDate, total, tradeCount, week, year } = weeklyItem
+                const startDateFormatted = getDayJsDateWithPlugins(startDate).format("ddd MMM DD, YYYY")
+                const endDateFormatted = getDayJsDateWithPlugins(endDate).format("ddd MMM DD, YYYY")
                 const tradingWeekString = `${startDateFormatted} - ${endDateFormatted}`
 
                 return (
@@ -33,13 +33,13 @@ export default function WeeklyTradeStats(props: WeeklyTotalsProps) {
                         flexDirection="row"
                         gap={3}
                         justifyContent={{ md: "space-between", xs: "flex-start" }}
-                        key={weekOfTheYear}
+                        key={`${week}-${year}`}
                     >
                         <Typography variant="body1">
-                            Week: {weekOfTheYear} <HiddenOnScreen size="xs" sizeToShow="md" title={tradingWeekString} />
+                            Week: {week} <HiddenOnScreen size="xs" sizeToShow="md" title={tradingWeekString} />
                         </Typography>
                         <Typography color="success" variant="body1">
-                            ${total}
+                            ${convertToFloat(total)}
                         </Typography>
                         <Typography variant="body1">{tradeCount} Trades</Typography>
                     </Box>

@@ -1,14 +1,13 @@
-import type { MonthlyTradeData } from "src/types/trades/monthly-trade-data"
+import type { MonthlyTrade } from "@prisma/client"
 
 import dayjs from "dayjs"
-import customParseFormat from "dayjs/plugin/customParseFormat"
 
 import { Box, Typography } from "@mui/material"
 
-dayjs.extend(customParseFormat)
+import getDayJsDateWithPlugins from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
 
 type MonthlyTotalsProps = {
-    monthlyTradeData: MonthlyTradeData[]
+    monthlyTradeData: MonthlyTrade[]
 }
 
 export default function MonthlyTradeStats(props: MonthlyTotalsProps) {
@@ -23,18 +22,19 @@ export default function MonthlyTradeStats(props: MonthlyTotalsProps) {
             </Typography>
             {monthlyTradeData
                 // sort by month order
-                .sort((currentMonth, nextMonth) => {
-                    const firstMonth = dayjs(currentMonth.monthYearOfTrade, "MM-YYYY").format("MMM")
-                    const secondMonth = dayjs(nextMonth.monthYearOfTrade, "MM-YYYY").format("MMM")
-                    return months[firstMonth] - months[secondMonth]
+                .sort((m1, m2) => {
+                    const firstMonth = getDayJsDateWithPlugins(`${m1.month}-${m1.year}`, "M-YYYY").format("MMM")
+                    const secondMonth = getDayJsDateWithPlugins(`${m2.month}-${m2.year}`, "M-YYYY").format("MMM")
+                    return months[secondMonth] - months[firstMonth]
                 })
                 .map((monthlyItem) => {
-                    const { monthYearOfTrade, total, tradeCount } = monthlyItem
+                    const { month, total, tradeCount, year } = monthlyItem
+                    const monthYearOfTrade = `${month}-${year}`
 
                     return (
                         <Box display="flex" flexDirection="row" gap={2} key={monthYearOfTrade}>
                             <Typography variant="body1">
-                                {dayjs(monthYearOfTrade, "MM-YYYY").format("MMM YYYY")}
+                                {dayjs(monthYearOfTrade, "M-YYYY").format("MMM YYYY")}
                             </Typography>
                             <Typography color="success" variant="body1">
                                 ${total}

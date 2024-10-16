@@ -1,6 +1,4 @@
-import type { MonthlyTradeData } from "src/types/trades/monthly-trade-data"
-import type { TickerTradeData } from "src/types/trades/ticker-trade-data"
-import type { WeeklyTradeData } from "src/types/trades/weekly-trade-data"
+import type { MonthlyTrade, TickerTrade, WeeklyTrade } from "@prisma/client"
 
 /*
  * allTimeTotal - the total amount of money you made from this trade data all time
@@ -17,11 +15,11 @@ export type TradeData = {
     avgMonthlyProfitLoss: number
 
     /* key is month and value is the trade data of the month */
-    monthlyTradeData: MonthlyTradeData[]
+    monthlyTradeData: MonthlyTrade[]
 
     /* key is the ticker symbol and value is the total amount made from that ticker */
-    tickerTradeData: TickerTradeData[]
+    tickerTradeData: TickerTrade[]
 
     /* the trade data of the week */
-    weeklyTradeData: WeeklyTradeData[]
+    weeklyTradeData: WeeklyTrade[]
 }

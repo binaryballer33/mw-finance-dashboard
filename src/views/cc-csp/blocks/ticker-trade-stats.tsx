@@ -2,6 +2,8 @@ import type { TickerTradeData } from "src/types/trades/ticker-trade-data"
 
 import { Box, Typography } from "@mui/material"
 
+import convertToFloat from "src/utils/helper-functions/convertToFloat"
+
 type TickerTotalsProps = {
     tickerTradeData: TickerTradeData[]
 }
@@ -28,7 +30,7 @@ export default function TickerTradeStats(props: TickerTotalsProps) {
                     >
                         <Typography variant="body1">{ticker} Totals: </Typography>
                         <Typography color="success" variant="body1">
-                            ${total}
+                            ${convertToFloat(total)}
                         </Typography>
                         <Typography variant="body1">{tradeCount} Trades</Typography>
                     </Box>

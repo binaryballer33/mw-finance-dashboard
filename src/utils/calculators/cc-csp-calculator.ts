@@ -3,12 +3,8 @@ import type { MonthlyTradeData } from "src/types/trades/monthly-trade-data"
 import type { TickerTradeData } from "src/types/trades/ticker-trade-data"
 import type { WeeklyTradeData } from "src/types/trades/weekly-trade-data"
 
-import dayjs from "dayjs"
-import weekOfYear from "dayjs/plugin/weekOfYear"
-
 import convertToFloat from "src/utils/helper-functions/convertToFloat"
-
-dayjs.extend(weekOfYear)
+import getDayJsDateWithPlugins from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
 
 export default class CoveredCallCashSecuredPutCalculator {
     private trades: Trade[]
@@ -35,7 +31,7 @@ export default class CoveredCallCashSecuredPutCalculator {
         // group trades by month ( key ) and an object of type MonthlyTradeData will be the ( value )
         const monthlyTrades = this.trades.reduce((obj: Record<string, MonthlyTradeData>, trade) => {
             // get the month and year from the trade date
-            const monthYearOfTrade = dayjs(trade.date).format("MM-YYYY")
+            const monthYearOfTrade = getDayJsDateWithPlugins(trade.date).format("MM-YYYY")
 
             // create the object if it doesn't exist and set the values
             if (!obj[monthYearOfTrade]) obj[monthYearOfTrade] = { monthYearOfTrade, total: 0, tradeCount: 0 }
@@ -87,7 +83,7 @@ export default class CoveredCallCashSecuredPutCalculator {
         // group trades by week ( key ) and an object of type WeeklyTradeData will be the ( value )
         const weeklyTrades = this.trades.reduce((obj: Record<number, WeeklyTradeData>, trade) => {
             // the date of the trade is the friday expiry day
-            const date = dayjs(trade.date)
+            const date = getDayJsDateWithPlugins(trade.date)
             const weekOfTheYear = date.week()
 
             // create the object if it doesn't exist and set the values

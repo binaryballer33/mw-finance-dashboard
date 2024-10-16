@@ -2,7 +2,10 @@
 
 import type {
     MonthlyRecurring as MonthlyRecurringItem,
+    MonthlyTrade,
+    TickerTrade,
     Trade,
+    WeeklyTrade,
     YearlyRecurring as YearlyRecurringItem,
 } from "@prisma/client"
 import type { MonthlyRecurringData } from "src/types/trades/monthly-recurring-data"
@@ -14,7 +17,10 @@ import { dehydrate } from "@tanstack/react-query"
 import CoveredCallCashSecuredPutCalculator from "src/utils/calculators/cc-csp-calculator"
 import RecurringIncomeExpenseCalculator from "src/utils/calculators/recurring-income-expense-calculator"
 
-import getCcCspTrades from "src/actions/cc-csp/get-cc-csp-trades"
+import getCcCspMonthlyTrades from "src/actions/cc-csp/queries/get-cc-csp-monthly-trades"
+import getCcCspTickerTrades from "src/actions/cc-csp/queries/get-cc-csp-ticker-trades"
+import getCcCspTrades from "src/actions/cc-csp/queries/get-cc-csp-trades"
+import getCcCspWeeklyTrades from "src/actions/cc-csp/queries/get-cc-csp-weekly-trades"
 import getMonthlyRecurring from "src/actions/monthly-recurring/get-monthly-recurring"
 import getYearlyRecurring from "src/actions/yearly-recurring/get-yearly-recurring"
 
@@ -29,26 +35,49 @@ import queryKeys from "src/api/query-keys"
 export default async function prefetchHomePageDataDehydrateState() {
     const queryClient = await createServerComponentQueryClient() // need to create a new queryClient for each request for server components
 
-    // prefetch all trades / finance data and store the data in the cache
-    await queryClient.prefetchQuery({
-        queryFn: async () => (await getCcCspTrades()) ?? [],
-        queryKey: queryKeys.trades,
-    })
-
+    // prefetch the monthly recurring incomes and expenses and store the data in the cache
     await queryClient.prefetchQuery({
         queryFn: async () => (await getMonthlyRecurring()) ?? [],
         queryKey: queryKeys.monthlyRecurring,
     })
 
+    // prefetch the yearly recurring incomes and expenses and store the data in the cache
     await queryClient.prefetchQuery({
         queryFn: async () => (await getYearlyRecurring()) ?? [],
         queryKey: queryKeys.yearlyRecurring,
     })
 
+    // prefetch all cc-csp trades and store the data in the cache
+    await queryClient.prefetchQuery({
+        queryFn: async () => (await getCcCspTrades()) ?? [],
+        queryKey: queryKeys.trades,
+    })
+
+    // prefetch all monthly trades and store the data in the cache
+    await queryClient.prefetchQuery({
+        queryFn: async () => (await getCcCspMonthlyTrades()) ?? [],
+        queryKey: queryKeys.monthlyTrades,
+    })
+
+    // prefetch all weekly trades and store the data in the cache
+    await queryClient.prefetchQuery({
+        queryFn: async () => (await getCcCspWeeklyTrades()) ?? [],
+        queryKey: queryKeys.weeklyTrades,
+    })
+
+    // prefetch all ticker trades and store the data in the cache
+    await queryClient.prefetchQuery({
+        queryFn: async () => (await getCcCspTickerTrades()) ?? [],
+        queryKey: queryKeys.tickerTrades,
+    })
+
     // get the data from the cache and return them in case a component needs them
-    const trades = queryClient.getQueryData<Trade[]>(queryKeys.trades)
     const monthlyRecurring = queryClient.getQueryData<MonthlyRecurringItem[]>(queryKeys.monthlyRecurring)
     const yearlyRecurring = queryClient.getQueryData<YearlyRecurringItem[]>(queryKeys.yearlyRecurring)
+    const trades = queryClient.getQueryData<Trade[]>(queryKeys.trades)
+    const monthlyTrades = queryClient.getQueryData<MonthlyTrade[]>(queryKeys.monthlyTrades)
+    const weeklyTrades = queryClient.getQueryData<WeeklyTrade[]>(queryKeys.weeklyTrades)
+    const tickerTrades = queryClient.getQueryData<TickerTrade[]>(queryKeys.tickerTrades)
 
     // get the covered calls and cash secured put stocks trading data
     const tradeData = new CoveredCallCashSecuredPutCalculator(trades!).getAllTradeData()
@@ -75,11 +104,11 @@ export default async function prefetchHomePageDataDehydrateState() {
     }
 
     const tradeDataCalculated: TradeData = {
-        allTimeTotal: tradeData.allTimeTotal,
-        avgMonthlyProfitLoss: tradeData.avgMonthlyProfitLoss,
-        monthlyTradeData: tradeData.monthlyTradeData,
-        tickerTradeData: tradeData.tickerTradeData,
-        weeklyTradeData: tradeData.weeklyTradeData,
+        allTimeTotal: 0,
+        avgMonthlyProfitLoss: 0,
+        monthlyTradeData: monthlyTrades!,
+        tickerTradeData: tickerTrades!,
+        weeklyTradeData: weeklyTrades!,
     }
 
     return {

@@ -2,14 +2,10 @@ import type { MonthlyRecurring, Trade, YearlyRecurring } from "@prisma/client"
 
 import fs from "fs"
 
-import dayjs from "dayjs"
-import weekOfYear from "dayjs/plugin/weekOfYear"
-
 import prisma from "src/utils/database/prisma"
+import getDayJsDateWithPlugins from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
 
 import routes from "src/routes/routes"
-
-dayjs.extend(weekOfYear)
 
 async function dropTables() {
     // delete in proper order
@@ -59,20 +55,22 @@ async function batchCreateAllTrades(trades: Trade[]) {
     const createdTrades = await prisma.$transaction(async (db) => {
         return await Promise.all(
             trades.map(async (trade) => {
-                const dateOfTheTrade = dayjs(trade.date)
-                const weekOfTheYear = dateOfTheTrade.week()
-                // the month that the trade occurred ( value returned from dayjs is zero based )
-                const monthYearOfTrade = `${dateOfTheTrade.month() + 1}-${dateOfTheTrade.year()}`
+                const dateOfTheTrade = getDayJsDateWithPlugins(trade.date)
+                const week = dateOfTheTrade.week()
+                const month = dateOfTheTrade.month() + 1
+                const year = dateOfTheTrade.year()
                 // the end of the trading week ( friday ) and the start of the trading week ( monday )
                 const endDate = dateOfTheTrade.format("MM-DD-YYYY")
                 const startDate = dateOfTheTrade.subtract(4, "day").format("MM-DD-YYYY")
+                const profitLossPercentage = 100 - (trade.buyToClose / trade.sellToOpen) * 100
 
                 // create the MonthlyTrade or update it, if it already exists
                 const createdMonthlyTrade = await db.monthlyTrade.upsert({
                     create: {
-                        monthYearOfTrade,
+                        month: dateOfTheTrade.month() + 1,
                         total: trade.profitLoss,
                         tradeCount: 1,
+                        year: dateOfTheTrade.year(),
                     },
                     update: {
                         total: {
@@ -82,7 +80,7 @@ async function batchCreateAllTrades(trades: Trade[]) {
                             increment: 1,
                         },
                     },
-                    where: { monthYearOfTrade },
+                    where: { month_year: { month, year } },
                 })
 
                 // create the WeeklyTrade or update it, if it already exists
@@ -93,7 +91,8 @@ async function batchCreateAllTrades(trades: Trade[]) {
                         startDate,
                         total: trade.profitLoss,
                         tradeCount: 1,
-                        weekOfTheYear,
+                        week,
+                        year,
                     },
                     update: {
                         total: {
@@ -103,7 +102,7 @@ async function batchCreateAllTrades(trades: Trade[]) {
                             increment: 1,
                         },
                     },
-                    where: { weekOfTheYear },
+                    where: { week_year: { week, year } },
                 })
 
                 // create the TickerTrade or update it, if it already exists
@@ -125,12 +124,16 @@ async function batchCreateAllTrades(trades: Trade[]) {
                 })
 
                 // create the Trade and associate it with the correct WeeklyTrade
-                const createdTrade = await db.trade.create({
+                await db.trade.create({
                     data: {
+                        buyToClose: trade.buyToClose,
+                        contracts: trade.contracts,
                         date: trade.date,
                         monthlyTradeId: createdMonthlyTrade.id,
                         profitLoss: trade.profitLoss,
+                        profitLossPercentage,
                         realized: trade.realized,
+                        sellToOpen: trade.sellToOpen,
                         strike: trade.strike,
                         ticker: trade.ticker,
                         tickerTradeId: createdTickerTrade.id,
@@ -138,13 +141,6 @@ async function batchCreateAllTrades(trades: Trade[]) {
                         weeklyTradeId: createdWeeklyTrade.id,
                     },
                 })
-
-                return {
-                    monthlyTrade: createdMonthlyTrade,
-                    tickerTrade: createdTickerTrade,
-                    trade: createdTrade,
-                    weeklyTrade: createdWeeklyTrade,
-                }
             }),
         )
     })

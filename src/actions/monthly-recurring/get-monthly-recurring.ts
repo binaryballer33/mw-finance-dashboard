@@ -7,9 +7,7 @@ import prisma from "src/utils/database/prisma"
 export default async function getMonthlyRecurring(): Promise<MonthlyRecurring[] | null> {
     try {
         return await prisma.monthlyRecurring.findMany({
-            orderBy: {
-                amount: "desc",
-            },
+            orderBy: { amount: "desc" },
         })
     } catch (error) {
         console.error(`Error Fetching Monthly Recurring: ${error}`)

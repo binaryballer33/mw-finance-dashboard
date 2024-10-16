@@ -5,7 +5,11 @@
 		"type": "CALL",
 		"strike": 185,
 		"profitLoss": 189.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 63.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-10-11",
@@ -13,7 +17,11 @@
 		"type": "CALL",
 		"strike": 137,
 		"profitLoss": 183.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 61.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-10-11",
@@ -21,7 +29,11 @@
 		"type": "PUT",
 		"strike": 225,
 		"profitLoss": 319.31,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 319.31,
+		"buyToClose": 0,
+		"contracts": 1,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-10-04",
@@ -29,7 +41,11 @@
 		"type": "CALL",
 		"strike": 290,
 		"profitLoss": 251.27,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 128.31,
+		"buyToClose": 2.68,
+		"contracts": 2,
+		"profitLossPercentage": 97.91
 	},
 	{
 		"date": "2024-10-04",
@@ -37,7 +53,11 @@
 		"type": "CALL",
 		"strike": 215,
 		"profitLoss": 116.63,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 119.31,
+		"buyToClose": 2.68,
+		"contracts": 1,
+		"profitLossPercentage": 97.75
 	},
 	{
 		"date": "2024-10-04",
@@ -45,7 +65,11 @@
 		"type": "CALL",
 		"strike": 175,
 		"profitLoss": 51.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 17.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-05-24",
@@ -53,7 +77,11 @@
 		"type": "CALL",
 		"strike": 185,
 		"profitLoss": 207.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 69.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-06-07",
@@ -61,7 +89,11 @@
 		"type": "CALL",
 		"strike": 190,
 		"profitLoss": 228.92,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 77.98,
+		"buyToClose": 1.67,
+		"contracts": 3,
+		"profitLossPercentage": 97.85
 	},
 	{
 		"date": "2024-06-14",
@@ -69,7 +101,11 @@
 		"type": "CALL",
 		"strike": 185,
 		"profitLoss": 165.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 55.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-06-28",
@@ -77,7 +113,11 @@
 		"type": "CALL",
 		"strike": 185,
 		"profitLoss": 120.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 40.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-07-12",
@@ -85,7 +125,11 @@
 		"type": "CALL",
 		"strike": 195,
 		"profitLoss": 150.96,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 50.32,
+		"buyToClose": 0,
+		"contracts": 3,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-05-31",
@@ -93,7 +137,11 @@
 		"type": "CALL",
 		"strike": 182.5,
 		"profitLoss": 101.31,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 101.31,
+		"buyToClose": 0,
+		"contracts": 1,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-06-14",
@@ -101,7 +149,11 @@
 		"type": "CALL",
 		"strike": 187.5,
 		"profitLoss": 149.31,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 149.31,
+		"buyToClose": 0,
+		"contracts": 1,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-06-21",
@@ -109,7 +161,11 @@
 		"type": "CALL",
 		"strike": 187.5,
 		"profitLoss": 35.63,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 46.31,
+		"buyToClose": 10.68,
+		"contracts": 1,
+		"profitLossPercentage": 76.94
 	},
 	{
 		"date": "2024-07-26",
@@ -117,7 +173,11 @@
 		"type": "CALL",
 		"strike": 187.5,
 		"profitLoss": 137.31,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 137.31,
+		"buyToClose": 0,
+		"contracts": 1,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-08-02",
@@ -125,7 +185,11 @@
 		"type": "CALL",
 		"strike": 200,
 		"profitLoss": 239.31,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 239.31,
+		"buyToClose": 0,
+		"contracts": 1,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-06-14",
@@ -133,7 +197,11 @@
 		"type": "CALL",
 		"strike": 27,
 		"profitLoss": 49.28,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 12.32,
+		"buyToClose": 0,
+		"contracts": 4,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-06-28",
@@ -141,7 +209,11 @@
 		"type": "CALL",
 		"strike": 26,
 		"profitLoss": 133.22,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 13.32,
+		"buyToClose": 0,
+		"contracts": 10,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-07-19",
@@ -149,7 +221,11 @@
 		"type": "CALL",
 		"strike": 31,
 		"profitLoss": 103.22,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 10.32,
+		"buyToClose": 0,
+		"contracts": 10,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-08-30",
@@ -157,7 +233,11 @@
 		"type": "CALL",
 		"strike": 20,
 		"profitLoss": 143.22,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 14.32,
+		"buyToClose": 0,
+		"contracts": 10,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-08-30",
@@ -165,7 +245,11 @@
 		"type": "CALL",
 		"strike": 150,
 		"profitLoss": 388.92,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 134.31,
+		"buyToClose": 4.67,
+		"contracts": 3,
+		"profitLossPercentage": 96.52
 	},
 	{
 		"date": "2024-06-14",
@@ -173,7 +257,11 @@
 		"type": "CALL",
 		"strike": 195,
 		"profitLoss": 198.64,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 99.32,
+		"buyToClose": 0,
+		"contracts": 2,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-07-12",
@@ -181,7 +269,11 @@
 		"type": "CALL",
 		"strike": 285,
 		"profitLoss": 283.29,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 143.32,
+		"buyToClose": 1.67,
+		"contracts": 2,
+		"profitLossPercentage": 98.83
 	},
 	{
 		"date": "2024-07-26",
@@ -189,7 +281,11 @@
 		"type": "CALL",
 		"strike": 300,
 		"profitLoss": 192.64,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 96.32,
+		"buyToClose": 0,
+		"contracts": 2,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-09-13",
@@ -197,7 +293,11 @@
 		"type": "CALL",
 		"strike": 250,
 		"profitLoss": 300.63,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 150.31,
+		"buyToClose": 0,
+		"contracts": 2,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-09-27",
@@ -205,15 +305,23 @@
 		"type": "CALL",
 		"strike": 265,
 		"profitLoss": 120.63,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 124.31,
+		"buyToClose": 3.68,
+		"contracts": 2,
+		"profitLossPercentage": 97.04
 	},
 	{
 		"date": "2024-05-24",
 		"ticker": "AMD",
 		"type": "PUT",
 		"strike": 160,
-		"profitLoss": 183.81,
-		"realized": "GAIN"
+		"profitLoss": 183.31,
+		"realized": "GAIN",
+		"sellToOpen": 183.31,
+		"buyToClose": 0,
+		"contracts": 1,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-07-19",
@@ -221,7 +329,11 @@
 		"type": "PUT",
 		"strike": 190,
 		"profitLoss": 91.29,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 158.32,
+		"buyToClose": 112.67,
+		"contracts": 2,
+		"profitLossPercentage": 28.83
 	},
 	{
 		"date": "2024-05-17",
@@ -229,7 +341,11 @@
 		"type": "PUT",
 		"strike": 165,
 		"profitLoss": 553.26,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 304.31,
+		"buyToClose": 27.68,
+		"contracts": 2,
+		"profitLossPercentage": 90.90
 	},
 	{
 		"date": "2024-06-28",
@@ -237,7 +353,11 @@
 		"type": "PUT",
 		"strike": 118,
 		"profitLoss": 198.64,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 99.32,
+		"buyToClose": 0,
+		"contracts": 2,
+		"profitLossPercentage": 100
 	},
 	{
 		"date": "2024-07-19",
@@ -245,7 +365,11 @@
 		"type": "PUT",
 		"strike": 117,
 		"profitLoss": 184.63,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 189.31,
+		"buyToClose": 4.68,
+		"contracts": 1,
+		"profitLossPercentage": 97.53
 	},
 	{
 		"date": "2024-06-07",
@@ -253,6 +377,10 @@
 		"type": "PUT",
 		"strike": 165,
 		"profitLoss": 113.63,
-		"realized": "GAIN"
+		"realized": "GAIN",
+		"sellToOpen": 119.31,
+		"buyToClose": 5.68,
+		"contracts": 1,
+		"profitLossPercentage": 95.24
 	}
 ]
