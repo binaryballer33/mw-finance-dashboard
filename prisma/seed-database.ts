@@ -3,7 +3,14 @@ import type { MonthlyRecurring, Trade, YearlyRecurring } from "@prisma/client"
 import fs from "fs"
 
 import prisma from "src/utils/database/prisma"
-import getDayJsDateWithPlugins from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
+import getDayJsDateWithPlugins, {
+    getDayJsObjectForTrades,
+} from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
+
+import createTrade from "src/actions/cc-csp/mutations/create-trade"
+import upsertMonthlyTrade from "src/actions/cc-csp/mutations/upsert-monthly-trade"
+import upsertTickerTrade from "src/actions/cc-csp/mutations/upsert-ticker-trade"
+import upsertWeeklyTrade from "src/actions/cc-csp/mutations/upsert-weekly-trade"
 
 import routes from "src/routes/routes"
 
@@ -56,91 +63,19 @@ async function batchCreateAllTrades(trades: Trade[]) {
         return await Promise.all(
             trades.map(async (trade) => {
                 const dateOfTheTrade = getDayJsDateWithPlugins(trade.date)
-                const week = dateOfTheTrade.week()
-                const month = dateOfTheTrade.month() + 1
-                const year = dateOfTheTrade.year()
-                // the end of the trading week ( friday ) and the start of the trading week ( monday )
-                const endDate = dateOfTheTrade.format("MM-DD-YYYY")
-                const startDate = dateOfTheTrade.subtract(4, "day").format("MM-DD-YYYY")
-                const profitLossPercentage = 100 - (trade.buyToClose / trade.sellToOpen) * 100
+                const dateObj = getDayJsObjectForTrades(dateOfTheTrade)
 
                 // create the MonthlyTrade or update it, if it already exists
-                const createdMonthlyTrade = await db.monthlyTrade.upsert({
-                    create: {
-                        month: dateOfTheTrade.month() + 1,
-                        total: trade.profitLoss,
-                        tradeCount: 1,
-                        year: dateOfTheTrade.year(),
-                    },
-                    update: {
-                        total: {
-                            increment: trade.profitLoss,
-                        },
-                        tradeCount: {
-                            increment: 1,
-                        },
-                    },
-                    where: { month_year: { month, year } },
-                })
+                const { id: monthlyTradeId } = (await upsertMonthlyTrade({ date: dateObj, db, trade }))!
 
                 // create the WeeklyTrade or update it, if it already exists
-                const createdWeeklyTrade = await db.weeklyTrade.upsert({
-                    create: {
-                        endDate,
-                        monthlyTradeId: createdMonthlyTrade.id,
-                        startDate,
-                        total: trade.profitLoss,
-                        tradeCount: 1,
-                        week,
-                        year,
-                    },
-                    update: {
-                        total: {
-                            increment: trade.profitLoss,
-                        },
-                        tradeCount: {
-                            increment: 1,
-                        },
-                    },
-                    where: { week_year: { week, year } },
-                })
+                const { id: weeklyTradeId } = (await upsertWeeklyTrade({ date: dateObj, db, monthlyTradeId, trade }))!
 
                 // create the TickerTrade or update it, if it already exists
-                const createdTickerTrade = await db.tickerTrade.upsert({
-                    create: {
-                        ticker: trade.ticker,
-                        total: trade.profitLoss,
-                        tradeCount: 1,
-                    },
-                    update: {
-                        total: {
-                            increment: trade.profitLoss,
-                        },
-                        tradeCount: {
-                            increment: 1,
-                        },
-                    },
-                    where: { ticker: trade.ticker },
-                })
+                const { id: tickerTradeId } = (await upsertTickerTrade({ db, trade }))!
 
-                // create the Trade and associate it with the correct WeeklyTrade
-                await db.trade.create({
-                    data: {
-                        buyToClose: trade.buyToClose,
-                        contracts: trade.contracts,
-                        date: trade.date,
-                        monthlyTradeId: createdMonthlyTrade.id,
-                        profitLoss: trade.profitLoss,
-                        profitLossPercentage,
-                        realized: trade.realized,
-                        sellToOpen: trade.sellToOpen,
-                        strike: trade.strike,
-                        ticker: trade.ticker,
-                        tickerTradeId: createdTickerTrade.id,
-                        type: trade.type,
-                        weeklyTradeId: createdWeeklyTrade.id,
-                    },
-                })
+                // create the Trade and associate it with its corresponding WeeklyTrade, MonthlyTrade and TickerTrade
+                return await createTrade({ db, monthlyTradeId, tickerTradeId, trade, weeklyTradeId })
             }),
         )
     })

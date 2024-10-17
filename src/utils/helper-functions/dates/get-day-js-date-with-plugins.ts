@@ -1,3 +1,5 @@
+import type { Dayjs } from "dayjs"
+
 import dayjs from "dayjs"
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import duration from "dayjs/plugin/duration"
@@ -32,4 +34,15 @@ export const formatStr = {
 /* get a dayjs date with the plugins from a regular Date instance or string */
 export default function getDayJsDateWithPlugins(date: Date | string, format?: string) {
     return dayjs(date, format)
+}
+
+/* returns useful information derived from a given date in respect to trades */
+export function getDayJsObjectForTrades(date: Dayjs) {
+    return {
+        endDate: date.format("MM-DD-YYYY"),
+        month: date.month() + 1,
+        startDate: date.subtract(4, "day").format("MM-DD-YYYY"),
+        week: date.week(),
+        year: date.year(),
+    }
 }
