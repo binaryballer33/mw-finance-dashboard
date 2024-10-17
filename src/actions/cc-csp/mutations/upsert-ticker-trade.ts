@@ -6,7 +6,7 @@ import { Prisma } from "@prisma/client"
 import PrismaClientOptions = Prisma.PrismaClientOptions
 
 type UpsertParams = {
-    db: Omit<
+    dbClient: Omit<
         PrismaClient<PrismaClientOptions, never, DefaultArgs>,
         "$connect" | "$disconnect" | "$extends" | "$on" | "$transaction" | "$use"
     >
@@ -14,10 +14,10 @@ type UpsertParams = {
 }
 
 export default async function upsertTickerTrade(params: UpsertParams) {
-    const { db, trade } = params
+    const { dbClient, trade } = params
 
     try {
-        return await db.tickerTrade.upsert({
+        return await dbClient.tickerTrade.upsert({
             create: {
                 ticker: trade.ticker,
                 total: trade.profitLoss,

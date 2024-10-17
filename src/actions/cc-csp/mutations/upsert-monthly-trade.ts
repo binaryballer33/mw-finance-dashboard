@@ -13,7 +13,7 @@ type UpsertParams = {
         week: number
         year: number
     }
-    db: Omit<
+    dbClient: Omit<
         PrismaClient<PrismaClientOptions, never, DefaultArgs>,
         "$connect" | "$disconnect" | "$extends" | "$on" | "$transaction" | "$use"
     >
@@ -21,11 +21,11 @@ type UpsertParams = {
 }
 
 export default async function upsertMonthlyTrade(params: UpsertParams) {
-    const { date, db, trade } = params
+    const { date, dbClient, trade } = params
     const { month, year } = date
 
     try {
-        return await db.monthlyTrade.upsert({
+        return await dbClient.monthlyTrade.upsert({
             create: {
                 month,
                 total: trade.profitLoss,

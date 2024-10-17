@@ -3,14 +3,8 @@ import type { MonthlyRecurring, Trade, YearlyRecurring } from "@prisma/client"
 import fs from "fs"
 
 import prisma from "src/utils/database/prisma"
-import getDayJsDateWithPlugins, {
-    getDayJsObjectForTrades,
-} from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
 
 import createTrade from "src/actions/cc-csp/mutations/create-trade"
-import upsertMonthlyTrade from "src/actions/cc-csp/mutations/upsert-monthly-trade"
-import upsertTickerTrade from "src/actions/cc-csp/mutations/upsert-ticker-trade"
-import upsertWeeklyTrade from "src/actions/cc-csp/mutations/upsert-weekly-trade"
 
 import routes from "src/routes/routes"
 
@@ -59,25 +53,8 @@ async function batchCreateYearlyRecurring(yearlyRecurring: YearlyRecurring[]) {
 async function batchCreateAllTrades(trades: Trade[]) {
     console.log("Attempting To Create Trades And Weekly Trades")
 
-    const createdTrades = await prisma.$transaction(async (db) => {
-        return await Promise.all(
-            trades.map(async (trade) => {
-                const dateOfTheTrade = getDayJsDateWithPlugins(trade.date)
-                const dateObj = getDayJsObjectForTrades(dateOfTheTrade)
-
-                // create the MonthlyTrade or update it, if it already exists
-                const { id: monthlyTradeId } = (await upsertMonthlyTrade({ date: dateObj, db, trade }))!
-
-                // create the WeeklyTrade or update it, if it already exists
-                const { id: weeklyTradeId } = (await upsertWeeklyTrade({ date: dateObj, db, monthlyTradeId, trade }))!
-
-                // create the TickerTrade or update it, if it already exists
-                const { id: tickerTradeId } = (await upsertTickerTrade({ db, trade }))!
-
-                // create the Trade and associate it with its corresponding WeeklyTrade, MonthlyTrade and TickerTrade
-                return await createTrade({ db, monthlyTradeId, tickerTradeId, trade, weeklyTradeId })
-            }),
-        )
+    const createdTrades = await prisma.$transaction(async (dbClient) => {
+        return await Promise.all(trades.map(async (trade) => await createTrade({ dbClient, trade })))
     })
 
     console.log(`Successfully Inserted ${createdTrades.length} Records To Trades Table\n`)
