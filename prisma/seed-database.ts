@@ -53,9 +53,7 @@ async function batchCreateYearlyRecurring(yearlyRecurring: YearlyRecurring[]) {
 async function batchCreateAllTrades(trades: Trade[]) {
     console.log("Attempting To Create Trades And Weekly Trades")
 
-    const createdTrades = await prisma.$transaction(async (dbClient) => {
-        return await Promise.all(trades.map(async (trade) => await createTrade({ dbClient, trade })))
-    })
+    const createdTrades = await Promise.all(trades.map(async (trade) => await createTrade(trade)))
 
     console.log(`Successfully Inserted ${createdTrades.length} Records To Trades Table\n`)
 
