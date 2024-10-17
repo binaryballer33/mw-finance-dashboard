@@ -2,7 +2,7 @@
 	{
 		"date": "2024-10-11",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 185,
 		"profitLoss": 189.96,
 		"realized": "GAIN",
@@ -14,7 +14,7 @@
 	{
 		"date": "2024-10-11",
 		"ticker": "NVDA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 137,
 		"profitLoss": 183.96,
 		"realized": "GAIN",
@@ -26,7 +26,7 @@
 	{
 		"date": "2024-10-11",
 		"ticker": "TSLA",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 225,
 		"profitLoss": 319.31,
 		"realized": "GAIN",
@@ -38,7 +38,7 @@
 	{
 		"date": "2024-10-04",
 		"ticker": "TSLA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 290,
 		"profitLoss": 251.27,
 		"realized": "GAIN",
@@ -50,7 +50,7 @@
 	{
 		"date": "2024-10-04",
 		"ticker": "COIN",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 215,
 		"profitLoss": 116.63,
 		"realized": "GAIN",
@@ -62,7 +62,7 @@
 	{
 		"date": "2024-10-04",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 175,
 		"profitLoss": 51.96,
 		"realized": "GAIN",
@@ -74,7 +74,7 @@
 	{
 		"date": "2024-05-24",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 185,
 		"profitLoss": 207.96,
 		"realized": "GAIN",
@@ -86,7 +86,7 @@
 	{
 		"date": "2024-06-07",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 190,
 		"profitLoss": 228.92,
 		"realized": "GAIN",
@@ -98,7 +98,7 @@
 	{
 		"date": "2024-06-14",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 185,
 		"profitLoss": 165.96,
 		"realized": "GAIN",
@@ -110,7 +110,7 @@
 	{
 		"date": "2024-06-28",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 185,
 		"profitLoss": 120.96,
 		"realized": "GAIN",
@@ -122,7 +122,7 @@
 	{
 		"date": "2024-07-12",
 		"ticker": "AMD",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 195,
 		"profitLoss": 150.96,
 		"realized": "GAIN",
@@ -134,7 +134,7 @@
 	{
 		"date": "2024-05-31",
 		"ticker": "AMZN",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 182.5,
 		"profitLoss": 101.31,
 		"realized": "GAIN",
@@ -146,7 +146,7 @@
 	{
 		"date": "2024-06-14",
 		"ticker": "AMZN",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 187.5,
 		"profitLoss": 149.31,
 		"realized": "GAIN",
@@ -158,7 +158,7 @@
 	{
 		"date": "2024-06-21",
 		"ticker": "AMZN",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 187.5,
 		"profitLoss": 35.63,
 		"realized": "GAIN",
@@ -170,7 +170,7 @@
 	{
 		"date": "2024-07-26",
 		"ticker": "AMZN",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 187.5,
 		"profitLoss": 137.31,
 		"realized": "GAIN",
@@ -182,7 +182,7 @@
 	{
 		"date": "2024-08-02",
 		"ticker": "AMZN",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 200,
 		"profitLoss": 239.31,
 		"realized": "GAIN",
@@ -194,7 +194,7 @@
 	{
 		"date": "2024-06-14",
 		"ticker": "MARA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 27,
 		"profitLoss": 49.28,
 		"realized": "GAIN",
@@ -206,7 +206,7 @@
 	{
 		"date": "2024-06-28",
 		"ticker": "MARA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 26,
 		"profitLoss": 133.22,
 		"realized": "GAIN",
@@ -218,7 +218,7 @@
 	{
 		"date": "2024-07-19",
 		"ticker": "MARA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 31,
 		"profitLoss": 103.22,
 		"realized": "GAIN",
@@ -230,7 +230,7 @@
 	{
 		"date": "2024-08-30",
 		"ticker": "MARA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 20,
 		"profitLoss": 143.22,
 		"realized": "GAIN",
@@ -242,7 +242,7 @@
 	{
 		"date": "2024-08-30",
 		"ticker": "NVDA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 150,
 		"profitLoss": 388.92,
 		"realized": "GAIN",
@@ -254,7 +254,7 @@
 	{
 		"date": "2024-06-14",
 		"ticker": "TSLA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 195,
 		"profitLoss": 198.64,
 		"realized": "GAIN",
@@ -266,7 +266,7 @@
 	{
 		"date": "2024-07-12",
 		"ticker": "TSLA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 285,
 		"profitLoss": 283.29,
 		"realized": "GAIN",
@@ -278,7 +278,7 @@
 	{
 		"date": "2024-07-26",
 		"ticker": "TSLA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 300,
 		"profitLoss": 192.64,
 		"realized": "GAIN",
@@ -290,7 +290,7 @@
 	{
 		"date": "2024-09-13",
 		"ticker": "TSLA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 250,
 		"profitLoss": 300.63,
 		"realized": "GAIN",
@@ -302,7 +302,7 @@
 	{
 		"date": "2024-09-27",
 		"ticker": "TSLA",
-		"type": "CALL",
+		"type": "SELL_CALL",
 		"strike": 265,
 		"profitLoss": 120.63,
 		"realized": "GAIN",
@@ -314,7 +314,7 @@
 	{
 		"date": "2024-05-24",
 		"ticker": "AMD",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 160,
 		"profitLoss": 183.31,
 		"realized": "GAIN",
@@ -326,7 +326,7 @@
 	{
 		"date": "2024-07-19",
 		"ticker": "AMZN",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 190,
 		"profitLoss": 91.29,
 		"realized": "GAIN",
@@ -338,7 +338,7 @@
 	{
 		"date": "2024-05-17",
 		"ticker": "COIN",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 165,
 		"profitLoss": 553.26,
 		"realized": "GAIN",
@@ -350,7 +350,7 @@
 	{
 		"date": "2024-06-28",
 		"ticker": "NVDA",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 118,
 		"profitLoss": 198.64,
 		"realized": "GAIN",
@@ -362,7 +362,7 @@
 	{
 		"date": "2024-07-19",
 		"ticker": "NVDA",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 117,
 		"profitLoss": 184.63,
 		"realized": "GAIN",
@@ -374,7 +374,7 @@
 	{
 		"date": "2024-06-07",
 		"ticker": "TSLA",
-		"type": "PUT",
+		"type": "SELL_PUT",
 		"strike": 165,
 		"profitLoss": 113.63,
 		"realized": "GAIN",
