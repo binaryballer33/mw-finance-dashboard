@@ -11,8 +11,14 @@ export type TradeData = {
     /* the total amount of money you made from this trade data all time  */
     allTimeTotal: number
 
-    /* average profit or loss made that month  */
+    /* average profit or loss made during the months you traded  */
     avgMonthlyProfitLoss: number
+
+    /* average profit or loss made for the trades you traded  */
+    avgTradeProfitLoss: number
+
+    /* average profit or loss made during the weeks you traded  */
+    avgWeeklyProfitLoss: number
 
     /* key is month and value is the trade data of the month */
     monthlyTradeData: MonthlyTrade[]

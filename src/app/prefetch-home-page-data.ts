@@ -17,11 +17,11 @@ import { dehydrate } from "@tanstack/react-query"
 import CoveredCallCashSecuredPutCalculator from "src/utils/calculators/cc-csp-calculator"
 import RecurringIncomeExpenseCalculator from "src/utils/calculators/recurring-income-expense-calculator"
 
-import getCcCspMonthlyTrades from "src/actions/cc-csp/queries/get-cc-csp-monthly-trades"
-import getCcCspTickerTrades from "src/actions/cc-csp/queries/get-cc-csp-ticker-trades"
-import getCcCspTrades from "src/actions/cc-csp/queries/get-cc-csp-trades"
-import getCcCspWeeklyTrades from "src/actions/cc-csp/queries/get-cc-csp-weekly-trades"
 import getMonthlyRecurring from "src/actions/monthly-recurring/get-monthly-recurring"
+import getMonthlyTrades from "src/actions/trades/queries/get-monthly-trades"
+import getTickerTrades from "src/actions/trades/queries/get-ticker-trades"
+import getTrades from "src/actions/trades/queries/get-trades"
+import getWeeklyTrades from "src/actions/trades/queries/get-weekly-trades"
 import getYearlyRecurring from "src/actions/yearly-recurring/get-yearly-recurring"
 
 import createServerComponentQueryClient from "src/api/query-client-server-component"
@@ -47,42 +47,40 @@ export default async function prefetchHomePageDataDehydrateState() {
         queryKey: queryKeys.yearlyRecurring,
     })
 
-    // prefetch all cc-csp trades and store the data in the cache
+    // prefetch all trades trades and store the data in the cache
     await queryClient.prefetchQuery({
-        queryFn: async () => (await getCcCspTrades()) ?? [],
+        queryFn: async () => (await getTrades()) ?? [],
         queryKey: queryKeys.trades,
     })
 
     // prefetch all monthly trades and store the data in the cache
     await queryClient.prefetchQuery({
-        queryFn: async () => (await getCcCspMonthlyTrades()) ?? [],
+        queryFn: async () => (await getMonthlyTrades()) ?? [],
         queryKey: queryKeys.monthlyTrades,
     })
 
     // prefetch all weekly trades and store the data in the cache
     await queryClient.prefetchQuery({
-        queryFn: async () => (await getCcCspWeeklyTrades()) ?? [],
+        queryFn: async () => (await getWeeklyTrades()) ?? [],
         queryKey: queryKeys.weeklyTrades,
     })
 
     // prefetch all ticker trades and store the data in the cache
     await queryClient.prefetchQuery({
-        queryFn: async () => (await getCcCspTickerTrades()) ?? [],
+        queryFn: async () => (await getTickerTrades()) ?? [],
         queryKey: queryKeys.tickerTrades,
     })
 
-    // get the data from the cache and return them in case a component needs them
-    const monthlyRecurring = queryClient.getQueryData<MonthlyRecurringItem[]>(queryKeys.monthlyRecurring)
-    const yearlyRecurring = queryClient.getQueryData<YearlyRecurringItem[]>(queryKeys.yearlyRecurring)
+    // get the trade data from the cache and return them in case a component needs them
     const trades = queryClient.getQueryData<Trade[]>(queryKeys.trades)
     const monthlyTrades = queryClient.getQueryData<MonthlyTrade[]>(queryKeys.monthlyTrades)
     const weeklyTrades = queryClient.getQueryData<WeeklyTrade[]>(queryKeys.weeklyTrades)
     const tickerTrades = queryClient.getQueryData<TickerTrade[]>(queryKeys.tickerTrades)
+    const tradeData = new CoveredCallCashSecuredPutCalculator(trades!).getTradeAverages()
 
-    // get the covered calls and cash secured put stocks trading data
-    const tradeData = new CoveredCallCashSecuredPutCalculator(trades!).getAllTradeData()
-
-    // get the recurring income and expense data
+    // get the recurring income and expense data from the cache and return them in case a component needs them
+    const monthlyRecurring = queryClient.getQueryData<MonthlyRecurringItem[]>(queryKeys.monthlyRecurring)
+    const yearlyRecurring = queryClient.getQueryData<YearlyRecurringItem[]>(queryKeys.yearlyRecurring)
     const recurringIncomeExpenseCalculator = new RecurringIncomeExpenseCalculator(monthlyRecurring!, yearlyRecurring!)
     const monthlyRecurringData = recurringIncomeExpenseCalculator.getMonthlyRecurringData()
     const yearlyRecurringData = recurringIncomeExpenseCalculator.getYearlyRecurringData()
@@ -104,8 +102,10 @@ export default async function prefetchHomePageDataDehydrateState() {
     }
 
     const tradeDataCalculated: TradeData = {
-        allTimeTotal: 0,
-        avgMonthlyProfitLoss: 0,
+        allTimeTotal: tradeData.allTimeTotal,
+        avgMonthlyProfitLoss: tradeData.avgMonthlyProfitLoss,
+        avgTradeProfitLoss: tradeData.avgTradeProfitLoss,
+        avgWeeklyProfitLoss: tradeData.avgWeeklyProfitLoss,
         monthlyTradeData: monthlyTrades!,
         tickerTradeData: tickerTrades!,
         weeklyTradeData: weeklyTrades!,

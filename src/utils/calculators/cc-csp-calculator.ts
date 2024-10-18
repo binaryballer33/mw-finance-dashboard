@@ -27,6 +27,16 @@ export default class CoveredCallCashSecuredPutCalculator {
         return convertToFloat(allTimeTotal / monthlyTradeData.length)
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    private getAverageTradeProfitLoss(allTimeTotal: number): number {
+        return convertToFloat(allTimeTotal / this.trades.length)
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    private getAverageWeeklyProfitLoss(weeklyTradeData: WeeklyTradeData[], allTimeTotal: number): number {
+        return convertToFloat(allTimeTotal / weeklyTradeData.length)
+    }
+
     private getMonthlyTradeData(): MonthlyTradeData[] {
         // group trades by month ( key ) and an object of type MonthlyTradeData will be the ( value )
         const monthlyTrades = this.trades.reduce((obj: Record<string, MonthlyTradeData>, trade) => {
@@ -124,5 +134,16 @@ export default class CoveredCallCashSecuredPutCalculator {
             tickerTradeData: this.getTickerTradeData(),
             weeklyTradeData: this.getWeeklyTradeData(),
         }
+    }
+
+    public getTradeAverages() {
+        const allTimeTotal = this.getAllTimeTotal()
+        const monthlyTradeData = this.getMonthlyTradeData()
+        const weeklyTrades = this.getWeeklyTradeData()
+        const avgMonthlyProfitLoss = this.getAverageMonthlyProfitLoss(monthlyTradeData, allTimeTotal)
+        const avgWeeklyProfitLoss = this.getAverageWeeklyProfitLoss(weeklyTrades, allTimeTotal)
+        const avgTradeProfitLoss = this.getAverageTradeProfitLoss(allTimeTotal)
+
+        return { allTimeTotal, avgMonthlyProfitLoss, avgTradeProfitLoss, avgWeeklyProfitLoss }
     }
 }

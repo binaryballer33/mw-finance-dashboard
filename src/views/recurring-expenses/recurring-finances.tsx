@@ -10,6 +10,8 @@ import { Container, Typography } from "@mui/material"
 
 import convertToFloat from "src/utils/helper-functions/convertToFloat"
 
+import getMonthlyTrades from "src/actions/trades/queries/get-monthly-trades"
+
 import FlexBetweenContainer from "src/components/flex-box/flex-between-container"
 import FlexContainer from "src/components/flex-box/flex-container"
 
@@ -42,7 +44,11 @@ export default async function RecurringFinances(props: RecurringExpensesProps) {
             </FlexContainer>
 
             <FlexBetweenContainer marginY={10} stackOn="desktop">
-                <MonthlyRecurring monthlyRecurring={addOtherIncomes(monthlyRecurring)} today={today} type="INCOME" />
+                <MonthlyRecurring
+                    monthlyRecurring={await addOtherIncomes(monthlyRecurring)}
+                    today={today}
+                    type="INCOME"
+                />
                 <YearlyRecurring today={today} type="INCOME" yearlyRecurring={yearlyRecurring.incomes} />
             </FlexBetweenContainer>
 
@@ -55,9 +61,14 @@ export default async function RecurringFinances(props: RecurringExpensesProps) {
 }
 
 /* add any other additional incomes to the monthly recurring incomes array */
-function addOtherIncomes(monthlyRecurring: MonthlyRecurringData) {
+async function addOtherIncomes(monthlyRecurring: MonthlyRecurringData) {
+    const monthlyTrades = await getMonthlyTrades()
+    let currentMonthSellOptionsIncome = 0
+    if (!monthlyTrades) currentMonthSellOptionsIncome = monthlyRecurring.avgProfitLoss
+    else currentMonthSellOptionsIncome = monthlyTrades[0].total
+
     const additionalMonthlyIncome = {
-        amount: monthlyRecurring.avgProfitLoss,
+        amount: currentMonthSellOptionsIncome,
         category: "Investments",
         createdAt: dayjs("10-10-2024").toDate(),
         dueDayOfMonth: "01",

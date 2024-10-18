@@ -4,7 +4,7 @@ import type { TickerTrade } from "@prisma/client"
 
 import prisma from "src/utils/database/prisma"
 
-export default async function getCcCspTickerTrades(page = 0, limit = 50): Promise<null | TickerTrade[]> {
+export default async function getTickerTrades(page = 0, limit = 50): Promise<null | TickerTrade[]> {
     const skipPreviousRecords = page * limit
 
     try {

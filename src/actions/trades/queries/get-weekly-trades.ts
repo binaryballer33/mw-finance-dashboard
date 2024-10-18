@@ -4,7 +4,7 @@ import type { WeeklyTrade } from "@prisma/client"
 
 import prisma from "src/utils/database/prisma"
 
-export default async function getCcCspWeeklyTrades(page = 0, limit = 50): Promise<null | WeeklyTrade[]> {
+export default async function getWeeklyTrades(page = 0, limit = 50): Promise<null | WeeklyTrade[]> {
     const skipPreviousRecords = page * limit
 
     try {

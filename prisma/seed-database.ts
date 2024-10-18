@@ -4,7 +4,7 @@ import fs from "fs"
 
 import prisma from "src/utils/database/prisma"
 
-import createTrade from "src/actions/cc-csp/mutations/create-trade"
+import createTrade from "src/actions/trades/mutations/create-trade"
 
 import routes from "src/routes/routes"
 

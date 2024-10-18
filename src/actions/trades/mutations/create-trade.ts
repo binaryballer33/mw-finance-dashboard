@@ -6,9 +6,9 @@ import getDayJsDateWithPlugins, {
     getDayJsObjectForTrades,
 } from "src/utils/helper-functions/dates/get-day-js-date-with-plugins"
 
-import upsertMonthlyTrade from "src/actions/cc-csp/mutations/upsert-monthly-trade"
-import upsertTickerTrade from "src/actions/cc-csp/mutations/upsert-ticker-trade"
-import upsertWeeklyTrade from "src/actions/cc-csp/mutations/upsert-weekly-trade"
+import upsertMonthlyTrade from "src/actions/trades/mutations/upsert-monthly-trade"
+import upsertTickerTrade from "src/actions/trades/mutations/upsert-ticker-trade"
+import upsertWeeklyTrade from "src/actions/trades/mutations/upsert-weekly-trade"
 
 export default async function createTrade(trade: Trade) {
     const profitLossPercentage = convertToFloat(100 - (trade.buyToClose / trade.sellToOpen) * 100)
